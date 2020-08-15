@@ -35,6 +35,7 @@ class GetRequest extends React.Component {
     }
 
     componentDidMount() {
+
         Promise.all([
             fetch(`https://api.gemini.com/v1/pubticker/ethusd`),
             fetch(`https://api.gemini.com/v1/pubticker/btcusd`),
@@ -67,6 +68,10 @@ class GetRequest extends React.Component {
     }
 
     render() {
+        var BTCBidMore=false;
+        var ETHBidMore=false;
+        var BTCAskMore=false;
+        var ETHAskMore=false;
         const { gemBTCask } = this.state;
         const { gemBTCbid } = this.state;
         const { gemETHask } = this.state;
@@ -76,29 +81,35 @@ class GetRequest extends React.Component {
         const { biETHask } = this.state;
         const { biETHbid } = this.state;
 
+        if(gemBTCbid > biBTCbid){BTCBidMore=true;}
+        if(gemBTCask < biBTCask){BTCAskMore=true;}
+        if(gemETHbid > biETHbid){ETHBidMore=true;}
+        if(gemETHask < biETHask){ETHAskMore=true;}
+
         return (
             <div className="App">
                 <header className="App-header"> Crypto Currency Exchange</header>
-            <div className="grid-container">
-                <div className="grid-item title1"> Gemini </div>
-                <div className="grid-item title2"> Binance </div>
-                <div className="grid-item thing1"> Sell </div>
-                <div className="grid-item thing2"> Buy </div>
-                <div className="grid-item thing3"> Sell </div>
-                <div className="grid-item thing4"> Buy </div>
-                <div className="grid-item"> BTC </div>
-                <div className="grid-item">${gemBTCbid}</div>
-                <div className="grid-item">${gemBTCask}</div>
-                <div className="grid-item">${biBTCbid}</div>
-                <div className="grid-item">${biBTCask}</div>
-                <div className="grid-item"> ETC </div>
-                <div className="grid-item">${gemETHbid}</div>
-                <div className="grid-item">${gemETHask}</div>
-                <div className="grid-item">${biETHbid}</div>
-                <div className="grid-item">${biETHask}</div>
+                <div className="grid-container">
+                    <div className="grid-item title1"> Gemini </div>
+                    <div className="grid-item title2"> Binance </div>
+                    <div className="grid-item thing1"> Sell </div>
+                    <div className="grid-item thing2"> Buy </div>
+                    <div className="grid-item thing3"> Sell </div>
+                    <div className="grid-item thing4"> Buy </div>
+                    <div className="grid-item"> BTC </div>
+                    <div className={BTCBidMore ? 'background-green' : 'grid-item'}>${gemBTCbid}</div>
+                    <div className={BTCAskMore ? 'background-green' : 'grid-item'}>${gemBTCask}</div>
+                    <div className={!BTCBidMore ? 'background-green' : 'grid-item'}>${biBTCbid}</div>
+                    <div className={!BTCAskMore ? 'background-green' : 'grid-item'}>${biBTCask}</div>
+                    <div className="grid-item"> ETH </div>
+                    <div className={ETHBidMore ? 'background-green' : 'grid-item'}>${gemETHbid}</div>
+                    <div className={ETHAskMore ? 'background-green' : 'grid-item'}>${gemETHask}</div>
+                    <div className={!ETHBidMore ? 'background-green' : 'grid-item'}>${biETHbid}</div>
+                    <div className={!ETHAskMore ? 'background-green' : 'grid-item'}>${biETHask}</div>
+                </div>
             </div>
-        </div>
         );
+
     }
 }
 export default GetRequest;
