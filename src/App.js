@@ -19,7 +19,6 @@ axios.all([
         console.log('binance BTC ask: $', response[3].data.askPrice);
     });
 
-
 class GetRequest extends React.Component {
     constructor(props) {
         super(props);
@@ -78,16 +77,27 @@ class GetRequest extends React.Component {
         const { biETHbid } = this.state;
 
         return (
-            <div className="card text-center m-3">
-                <div className="card-body">gemini BTC bid: $: {gemBTCbid}</div>
-                <div className="card-arm">gemini BTC ask: $: {gemBTCask}</div>
-                <div className="card-ear">gemini ETC bid: $: {gemETHbid}</div>
-                <div className="card-leg">gemini ETC ask: $: {gemETHask}</div>
-                <div className="card-body">binance BTC bid: $: {biBTCbid}</div>
-                <div className="card-arm">binance BTC ask: $: {biBTCask}</div>
-                <div className="card-ear">binance ETC bid: $: {biETHbid}</div>
-                <div className="card-leg">binance ETC ask: $: {biETHask}</div>
+            <div className="App">
+                <header className="App-header"> Crypto Currency Exchange</header>
+            <div className="grid-container">
+                <div className="grid-item title1"> Gemini </div>
+                <div className="grid-item title2"> Binance </div>
+                <div className="grid-item thing1"> Sell </div>
+                <div className="grid-item thing2"> Buy </div>
+                <div className="grid-item thing3"> Sell </div>
+                <div className="grid-item thing4"> Buy </div>
+                <div className="grid-item"> BTC </div>
+                <div className="grid-item">${gemBTCbid}</div>
+                <div className="grid-item">${gemBTCask}</div>
+                <div className="grid-item">${biBTCbid}</div>
+                <div className="grid-item">${biBTCask}</div>
+                <div className="grid-item"> ETC </div>
+                <div className="grid-item">${gemETHbid}</div>
+                <div className="grid-item">${gemETHask}</div>
+                <div className="grid-item">${biETHbid}</div>
+                <div className="grid-item">${biETHask}</div>
             </div>
+        </div>
         );
     }
 }
