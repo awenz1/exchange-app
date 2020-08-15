@@ -1,24 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import './App.css';
-
-function App() {
-
-    return (
-        <div className="Rates">
-
-            <p id="gemETCBidrate"></p>
-            <p id="gemETCAskrate"></p>
-            <p id="gemBTCBidrate"></p>
-            <p id="gemBTCAskrate"></p>
-            <p id="biETCBidrate"></p>
-            <p id="biETCAskrate"></p>
-            <p id="biBTCBidrate"></p>
-            <p id="biBTCAskrate"></p>
-
-        </div>
-    );
-}
+import axios from 'axios';
 
 axios.all([
     axios.get('https://api.gemini.com/v1/pubticker/ethusd'),
@@ -27,18 +9,6 @@ axios.all([
     axios.get('https://api.binance.us/api/v3/ticker/24hr?symbol=BTCUSD')
 ])
     .then(response => {
-        var gemETCBidrate = response[0].data.bid;
-        document.getElementById("gemETCBidrate").innerHTML= gemETCBidrate;
-        var gemETCAskrate =response[0].data.ask;
-        document.getElementById("gemETCAskrate").innerHTML = gemETCAskrate;
-        var gemBTCBidrate = response[1].data.bid;
-        document.getElementById("gemBTCBidrate").innerHTML= gemBTCBidrate;
-        var gemBTCAskrate = response[1].data.ask;
-        document.getElementById("gemBTCAskrate").innerHTML= gemBTCAskrate;
-        document.getElementById("biETCBidrate").innerHTML=response[2].data.bidPrice;
-        document.getElementById("biETCAskrate").innerHTML=response[2].data.askPrice;
-        document.getElementById("biBTCBidrate").innerHTML=response[3].data.bidPrice;
-        document.getElementById("biBTCAskrate").innerHTML=response[3].data.askPrice;
         console.log('gemini ETH bid: $', response[0].data.bid);
         console.log('gemini ETH ask: $', response[0].data.ask);
         console.log('gemini BTC bid: $', response[1].data.bid);
@@ -49,72 +19,76 @@ axios.all([
         console.log('binance BTC ask: $', response[3].data.askPrice);
     });
 
-/*class GetRequest extends React.Component {
+
+class GetRequest extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             gemBTCask: null,
             gemBTCbid: null,
             gemETHask: null,
-            gemETHbid: null
+            gemETHbid: null,
+            biBTCask: null,
+            biBTCbid: null,
+            biETHask: null,
+            biETHbid: null
         };
     }
 
     componentDidMount() {
-        // Simple GET request using fetch
         Promise.all([
-            fetch('https://api.gemini.com/v1/pubticker/ethusd'),
-            fetch('https://api.gemini.com/v1/pubticker/btcusd')
-        ]).then(function(responses) {
-            return Promise.all(responses.map(function (response) {
-                return response.json();
-            }));
-        }).then(function(data){
-            console.log(data);
-        }).catch(function (error) {
-            // if there's an error, log it
-            console.log(error);
-        });
-       /* fetch('https://api.gemini.com/v1/pubticker/ethusd')
-            .then(response => response.json())
-            .then(data => this.setState({ gemETHask: data.ask }));
-        fetch('https://api.gemini.com/v1/pubticker/ethusd')
-            .then(response => response.json())
-            .then(data => this.setState({ gemETHbid: data.bid }));
-        fetch('https://api.gemini.com/v1/pubticker/btcusd')
-            .then(response => response.json())
-            .then(data => this.setState({ gemBTCask: data.ask }));
-        return fetch('https://api.gemini.com/v1/pubticker/btcusd')
-            .then(response => response.json())
-            .then(data => this.setState({ gemBTCask: data.ask }));
+            fetch(`https://api.gemini.com/v1/pubticker/ethusd`),
+            fetch(`https://api.gemini.com/v1/pubticker/btcusd`),
+            fetch(`https://api.binance.us/api/v3/ticker/24hr?symbol=ETHUSD`),
+            fetch(`https://api.binance.us/api/v3/ticker/24hr?symbol=BTCUSD`)
+        ])
+            .then(([gemEthRes, gemBtcRes,biEthRes, biBtcRes]) => {
+                if (!gemEthRes.ok) return gemEthRes.json().then(e => Promise.reject(e));
+                if (!gemBtcRes.ok) return gemBtcRes.json().then(e => Promise.reject(e));
+                if (!biEthRes.ok) return biEthRes.json().then(e => Promise.reject(e));
+                if (!biBtcRes.ok) return biBtcRes.json().then(e => Promise.reject(e));
 
+                return Promise.all([gemEthRes.json(), gemBtcRes.json(),biEthRes.json(),biBtcRes.json()]);
+            })
+            .then(([gemEth, gemBtc,biEth, biBtc]) => {
+                this.setState({
+                    gemETHask: gemEth.ask,
+                    gemETHbid: gemEth.bid,
+                    gemBTCask: gemBtc.ask,
+                    gemBTCbid: gemBtc.bid,
+                    biETHask: biEth.askPrice,
+                    biETHbid: biEth.bidPrice,
+                    biBTCask: biBtc.askPrice,
+                    biBTCbid: biBtc.bidPrice
+                });
+            })
+            .catch(error => {
+                console.error({ error });
+            });
     }
 
     render() {
         const { gemBTCask } = this.state;
         const { gemBTCbid } = this.state;
-        const { gemETCask } = this.state;
-        const { gemETCbid } = this.state;
+        const { gemETHask } = this.state;
+        const { gemETHbid } = this.state;
+        const { biBTCask } = this.state;
+        const { biBTCbid } = this.state;
+        const { biETHask } = this.state;
+        const { biETHbid } = this.state;
+
         return (
             <div className="card text-center m-3">
-                <h5 className="card-header">Simple GET Request</h5>
-                <div className="card-body">
-                    gemini BTC bid: $: {gemBTCbid}
-                </div>
-                <div className="card-arm">
-                    gemini BTC ask: $: {gemBTCask}
-                    </div>
-                <div className="card-ear">
-                    gemini ETC bid: $: {gemETCbid}
-                </div>
-                <div className="card-leg">
-                    gemini ETC ask: $: {gemETCask}
-                </div>
+                <div className="card-body">gemini BTC bid: $: {gemBTCbid}</div>
+                <div className="card-arm">gemini BTC ask: $: {gemBTCask}</div>
+                <div className="card-ear">gemini ETC bid: $: {gemETHbid}</div>
+                <div className="card-leg">gemini ETC ask: $: {gemETHask}</div>
+                <div className="card-body">binance BTC bid: $: {biBTCbid}</div>
+                <div className="card-arm">binance BTC ask: $: {biBTCask}</div>
+                <div className="card-ear">binance ETC bid: $: {biETHbid}</div>
+                <div className="card-leg">binance ETC ask: $: {biETHask}</div>
             </div>
         );
     }
-}*/
-
-export default App;
-//export default GetRequest;
+}
+export default GetRequest;
