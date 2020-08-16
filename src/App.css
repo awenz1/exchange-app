@@ -11,6 +11,16 @@ body{
   text-align: center;
 }
 
+.button1 {
+  border-radius: 8px;
+  color: black;
+  background-color: #9A9A9A;
+}
+
+.button1:hover {
+  background-color: white;
+}
+
 .bold {
   font-weight: bolder;
 }
@@ -35,8 +45,8 @@ body{
 
 .grid-container {
   display:grid;
- /*grid-template-columns: 75px 100px 100px 100px 100px;*/
-  /*grid-template-rows: 50px 25px 50px 50px;*/
+  grid-template-columns: 75px 100px 100px 100px 100px;
+  grid-template-rows: 50px 25px 50px 50px;
   background-color: #9A9A9A;
   justify-content: center;
   align-content: center;
@@ -54,6 +64,12 @@ body{
   grid-column-start: 2;
   grid-column-end: 4;
   padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.title1:hover {
+  background-color: white;
 }
 
 .title2{
@@ -61,6 +77,12 @@ body{
   grid-column-start: 4;
   grid-column-end: 6;
   padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.title2:hover {
+  background-color: white;
 }
 
 .thing1{

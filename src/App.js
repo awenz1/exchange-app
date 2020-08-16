@@ -45,11 +45,8 @@ class GetRequest extends React.Component {
                     biBTCbid: biBtc.bidPrice
                 });
             })
-            .catch(error => {
-                console.error({ error });
-            });
+            .catch(error => {console.error({ error });});
     }
-
 
     render() {
         var BTCBidMore=false;
@@ -78,8 +75,8 @@ class GetRequest extends React.Component {
             <div className="App">
                 <header className="App-header"> Crypto Currency Exchange</header>
                 <div className="grid-container">
-                    <div className="grid-item title1"> Gemini </div>
-                    <div className="grid-item title2"> Binance </div>
+                    <a target="_blank" className="grid-item title1" rel="noopener noreferrer" href="https://exchange.gemini.com/buy/BTC"> Gemini </a>
+                    <a target="_blank" className="grid-item title2" rel="noopener noreferrer" href="https://www.binance.us/en"> Binance </a>
                     <div className="grid-item thing1"> Sell </div>
                     <div className="grid-item thing2"> Buy </div>
                     <div className="grid-item thing3"> Sell </div>
@@ -95,10 +92,9 @@ class GetRequest extends React.Component {
                     <div className={!ETHBidMore ? 'background-green' : 'grid-item'}>${biETHbid} </div>
                     <div className={!ETHAskMore ? 'background-green' : 'grid-item'}>${biETHask}</div>
                 </div>
-                <button onClick={() => window.location.reload(false)}>Click to reload!</button>
+                <button className="button1" onClick={() => window.location.reload(false)}>Click to reload!</button>
             </div>
         );
-
     }
 }
 export default GetRequest;
