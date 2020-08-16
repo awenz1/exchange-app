@@ -11,6 +11,10 @@ body{
   text-align: center;
 }
 
+.bold {
+  font-weight: bolder;
+}
+
 .background-green {
   background-color: #31AD3C;
   border: 1px solid rgba(0, 0, 0, 0.8);
@@ -31,8 +35,8 @@ body{
 
 .grid-container {
   display:grid;
-  grid-template-columns: 75px 100px 100px 100px 100px;
-  grid-template-rows: 50px 25px 50px 50px;
+ /*grid-template-columns: 75px 100px 100px 100px 100px;*/
+  /*grid-template-rows: 50px 25px 50px 50px;*/
   background-color: #9A9A9A;
   justify-content: center;
   align-content: center;
@@ -46,36 +50,42 @@ body{
 }
 
 .title1{
+  font-weight: bolder;
   grid-column-start: 2;
   grid-column-end: 4;
   padding: 10px;
 }
 
 .title2{
+  font-weight: bolder;
   grid-column-start: 4;
   grid-column-end: 6;
   padding: 10px;
 }
 
 .thing1{
+  font-weight: bolder;
   grid-column-start: 2;
   grid-column-end: 3;
   padding: 5px;
 }
 
 .thing2{
+  font-weight: bolder;
   grid-column-start: 3;
   grid-column-end: 4;
   padding: 5px;
 }
 
 .thing3{
+  font-weight: bolder;
   grid-column-start: 4;
   grid-column-end: 5;
   padding: 5px;
 }
 
 .thing4{
+  font-weight: bolder;
   grid-column-start: 5;
   grid-column-end: 6;
   padding: 5px;
